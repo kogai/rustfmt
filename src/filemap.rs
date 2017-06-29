@@ -143,7 +143,8 @@ where
             }
         }
         WriteMode::Plain => {
-            write_system_newlines(out, text, config)?;
+            let mismatch = create_diff(filename, text, config)?;
+            return Ok(!mismatch.is_empty());
         }
         WriteMode::Display | WriteMode::Coverage => {
             println!("{}:\n", filename);
